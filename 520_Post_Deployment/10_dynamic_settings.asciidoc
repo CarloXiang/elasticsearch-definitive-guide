@@ -1,22 +1,17 @@
 
-=== Changing Settings Dynamically
+=== 动态变更设置
 
-Many settings in Elasticsearch are dynamic and can be modified through the API.
-Configuration changes that force a node (or cluster) restart are strenuously avoided.((("post-deployment", "changing settings dynamically")))
-And while it's possible to make the changes through the static configs, we
-recommend that you use the API instead.
+Elasticsearch 里很多设置都是动态的，可以通过 API 修改。我们极力避免配置变更强制重启节点（或者集群）才能生效这种事情。((("post-deployment", "changing settings dynamically")))而且虽然通过静态配置完成变更也是可行的，我们建议你还是用 API 来实现。
 
-The `cluster-update` API operates((("Cluster Update API"))) in two modes:
+`集群更新` API((("Cluster Update API")))有两种工作模式：
 
-Transient:: 
-    These changes are in effect until the cluster restarts.  Once
-a full cluster restart takes place, these settings are erased.
+临时（Transient）:: 
+    这些变更会一直起作用直到集群重启。一旦发生一次全集群重启，这些配置就被清除了。
 
-Persistent::
-    These changes are permanently in place unless explicitly changed.
-They will survive full cluster restarts and override the static configuration files.
+永久（Persistent）::
+    这些变更会永久存在直到被显式修改。即使全集群重启它们也会存活下来并覆盖掉静态配置文件里的选项。
 
-Transient versus persistent settings are supplied in the JSON body:
+临时和永久配置在 JSON 体里分别提供：
 
 [source,js]
 ----
@@ -30,10 +25,8 @@ PUT /_cluster/settings
     }
 }
 ----
-<1> This persistent setting will survive full cluster restarts.
-<2> This transient setting will be removed after the first full cluster 
-restart.
+<1> 这个永久设置会在全集群重启时存活。
+<2> 这个临时设置会在第一次全集群重启后被移除。
 
-A complete list of settings that can be updated dynamically can be found in the
-{ref}/cluster-update-settings.html[online reference docs].
+可以动态更新的设置的完整清单，请阅读 {ref}/cluster-update-settings.html[online reference docs]。
 
