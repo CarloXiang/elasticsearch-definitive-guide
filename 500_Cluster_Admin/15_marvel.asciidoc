@@ -7,7 +7,7 @@ https://www.elastic.co/guide/en/marvel/current/index.html[Marvel] 让你可以�
 
 随着你集群规模的发展，统计 API 的输出内容会复杂得让人完全没法看。当你有一大把节点，比如说一百个，再阅读这个输出的 JSON 就非常乏味了。而 Marvel 可以让你交互式的探索这些数据，更容易于集中关注特定节点或者索引上发生了什么。
 
-Marvel 使用公开的 API，和你自己能找到的一样 -- 它并不能暴露任何你通过 API 访问不到的统计信息。但是，Marvel 极大的简化了这些统计信息的采集和可视化工作。
+Marvel 使用公开的 API，和你自己能找到的一样 -- 它没有暴露任何你通过 API 访问不到的统计信息。但是，Marvel 极大的简化了这些统计信息的采集和可视化工作。
 
 Marvel 可以免费使用（包括生产环境上！），所以你现在就开始用起来吧！安装介绍，参阅 
 https://www.elastic.co/guide/en/marvel/current/getting-started.html[Marvel 入门]。
