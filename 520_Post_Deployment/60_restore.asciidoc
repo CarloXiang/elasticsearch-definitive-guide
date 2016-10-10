@@ -30,7 +30,7 @@ POST /_snapshot/my_backup/snapshot_1/_restore
 [TIP]
 ==================================================
 
-和快照类似， `restore` 命令也会立刻返回，恢复进程会在后台发生。如果你更希望你的 HTTP 调用阻塞直到恢复完成，添加 `wait_for_completion` 标记：
+和快照类似， `restore` 命令也会立刻返回，恢复进程会在后台进行。如果你更希望你的 HTTP 调用阻塞直到恢复完成，添加 `wait_for_completion` 标记：
 
 [source,js]
 ----
@@ -42,9 +42,9 @@ POST _snapshot/my_backup/snapshot_1/_restore?wait_for_completion=true
 
 ==== 监控恢复操作
 
-从仓库恢复数据借鉴了 Elasticsearch 里已有的现行恢复机制。((("restoring from a snapshot", "monitoring restore operations")))在内部实现上，从仓库恢复分片和从另一个节点恢复是相等的。
+从仓库恢复数据借鉴了 Elasticsearch 里已有的现行恢复机制。((("restoring from a snapshot", "monitoring restore operations")))在内部实现上，从仓库恢复分片和从另一个节点恢复是等价的。
 
-如果你你想监控恢复的进度，你可以使用 `recovery` API。这是一个通用目的的 API，用来展示你集群中移动着的分片状态。
+如果你想监控恢复的进度，你可以使用 `recovery` API。这是一个通用目的的 API，用来展示你集群中移动着的分片状态。
 
 这个 API 可以为你在恢复的指定索引单独调用：
 
@@ -120,7 +120,7 @@ GET /_recovery/
 
 ==== 取消一个恢复
 
-要取消一个恢复，你需要删除正在恢复的索引。((("restoring from a snapshot", "canceling a restore")))因为恢复进程其实就是分片恢复，发送一个 `删除索引` API 修改集群状态，就会依次停止恢复了。比如：
+要取消一个恢复，你需要删除正在恢复的索引。((("restoring from a snapshot", "canceling a restore")))因为恢复进程其实就是分片恢复，发送一个 `删除索引` API 修改集群状态，就可以停止恢复进程。比如：
 
 [source,js]
 ----
