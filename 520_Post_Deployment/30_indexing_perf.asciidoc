@@ -1,7 +1,7 @@
 [[indexing-performance]]
 === 索引性能技巧
 
-如果你是在一个索引负载很重的环境，((("indexing", "performance tips")))((("post-deployment", "indexing performance tips")))比如索引的是日志，你可能愿意牺牲一些搜索性能换取更快的索引速率。在这些场景里，搜索常常是很少见的操作，而且一般是由你公司内部的人发起的。他们也愿意为一个搜索等上几秒钟，而不像普通消费者，要求一个搜索必须毫秒级返回。
+如果你是在一个索引负载很重的环境，((("indexing", "performance tips")))((("post-deployment", "indexing performance tips")))比如索引的是基础设施日志，你可能愿意牺牲一些搜索性能换取更快的索引速率。在这些场景里，搜索常常是很少见的操作，而且一般是由你公司内部的人发起的。他们也愿意为一个搜索等上几秒钟，而不像普通消费者，要求一个搜索必须毫秒级返回。
 
 基于这种特殊的场景，我们可以有几种权衡办法来提高你的索引性能。
 
@@ -52,7 +52,7 @@
 [[segments-and-merging]]
 ==== 段和合并
 
-段合并的计算量庞大，((("indexing", "performance tips", "segments and merging")))((("merging segments")))((("segments", "merging")))而且还要吃掉大量磁盘 I/O。合并在后台定期操作，因为他们可能要很长时间才能完成，尤其是比较大的短。这个通常来说都没问题，以你为大规模的段合并的概率是很罕见的。
+段合并的计算量庞大，((("indexing", "performance tips", "segments and merging")))((("merging segments")))((("segments", "merging")))而且还要吃掉大量磁盘 I/O。合并在后台定期操作，因为他们可能要很长时间才能完成，尤其是比较大的段。这个通常来说都没问题，因为大规模段合并的概率是很小的。
 
 不过有时候合并会拖累写入速率。如果这个真的发生了，Elasticsearch 会自动限制索引请求到单个线程里。这个可以防止出现 _段爆炸_ 问题，即数以百计的段在被合并之前就生成出来。如果 Elasticsearch 发现合并拖累索引了，它会会记录一个声明有 `now throttling indexing` 的 `INFO` 级别信息。
 
@@ -104,7 +104,7 @@ index.merge.scheduler.max_thread_count: 1
 
 - 如果你在做大批量导入，考虑通过设置 `index.number_of_replicas: 0`((("replicas, disabling during large bulk imports")))关闭副本。文档在复制的时候，整个文档内容都被发往副本节点，然后逐字的把索引过程重复一遍。这意味着每个副本也会执行分析、索引以及可能的合并过程。
 +
-相反，如果你的索引是零副本，然后在写入完成后再开启副本，恢复过程本质上只是一个字节到字节的网络传输。比重复索引过程这个算是相当高效的了。
+相反，如果你的索引是零副本，然后在写入完成后再开启副本，恢复过程本质上只是一个字节到字节的网络传输。相比重复索引过程，这个算是相当高效的了。
 
 - 如果你没有给每个文档自带 ID，使用 Elasticsearch 的自动 ID 功能。((("id", "auto-ID functionality of Elasticsearch")))这个为避免版本查找做了优化，因为自动生成的 ID 是唯一的。
 
