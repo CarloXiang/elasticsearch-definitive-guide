@@ -1,7 +1,7 @@
 [[logging]]
 === 日志记录
 
-Elasticsearch 输出很多日志，都放在 `ES_HOME/logs` 目录下。默认的日志记录等级是 `INFO` 。((("post-deployment", "logging")))((("logging", "Elasticsearch logging")))它提供了适度的信息，但是又设计好了不至于让你的日志太过庞大。
+Elasticsearch 会输出很多日志，都放在 `ES_HOME/logs` 目录下。默认的日志记录等级是 `INFO` 。((("post-deployment", "logging")))((("logging", "Elasticsearch logging")))它提供了适度的信息，但是又设计好了不至于让你的日志太过庞大。
 
 当调试问题的时候，特别是节点发现相关的问题（因为这个经常依赖于各式过于繁琐的网络配置），提高日志记录等级到 `DEBUG` 是很有帮助的。
 
@@ -9,7 +9,7 @@ Elasticsearch 输出很多日志，都放在 `ES_HOME/logs` 目录下。默认�
 
 要实现这个更新，选择你感兴趣的日志器，然后在前面补上 `logger.` 。对根日志器你可以用 `logger._root` 来表示。
 
-让我们开大节点发现的日志记录：
+让我们调高节点发现的日志记录级别：
 
 [source,js]
 ----
@@ -43,9 +43,9 @@ PUT /my_index/_settings
     "index.indexing.slowlog.threshold.index.info": "5s" <3>
 }
 ----
-<1> 查询慢过 10 秒输出一个 `WARN` 日志。
-<2> 获取慢过 500 毫秒输出一个 `DEBUG` 日志。
-<3> 索引慢过 5 秒输出一个 `INFO` 日志。
+<1> 查询慢于 10 秒输出一个 `WARN` 日志。
+<2> 获取慢于 500 毫秒输出一个 `DEBUG` 日志。
+<3> 索引慢于 5 秒输出一个 `INFO` 日志。
 
 你也可以在 `elasticsearch.yml` 文件里定义这些阈值。没有阈值设置的索引会自动继承在静态配置文件里配置的参数。
 
