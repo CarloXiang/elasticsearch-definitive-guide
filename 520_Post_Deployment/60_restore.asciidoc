@@ -1,4 +1,4 @@
-
+[[_restore]]
 === 从快照恢复
 
 一旦你备份过了数据，恢复它就简单了：只要在你希望恢复回集群的快照 ID((("post-deployment", "restoring from a snapshot")))((("restoring from a snapshot")))后面加上 `_restore` 即可：
