@@ -1,4 +1,4 @@
-[[_health]]
+[[_cluster_health]]
 === 集群健康
 
 一个 Elasticsearch 集群至少包括一个节点和一个索引。或者它((("cluster health")))((("clusters", "administration", "Cluster Health API")))可能有一百个数据节点、三个单独的主节点，以及一小打客户端节点——这些共同操作一千个索引（以及上万个分片）。
